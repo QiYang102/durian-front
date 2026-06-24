@@ -12,10 +12,11 @@ export interface InputProps
   control: any;
   defaultValue?: string;
   label?: string;
+  rules?: any;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, control, id, defaultValue, label, ...props }, ref) => {
+  ({ className, type, control, id, defaultValue, label, rules, ...props }, ref) => {
     const {
       field,
       formState: { errors },
@@ -23,28 +24,32 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       control: control,
       name: id,
       defaultValue: defaultValue || "",
+      rules: rules,
     });
     return (
-      <>
-        {label && <Label htmlFor={id}>{label}</Label>}
+      <div className="flex flex-col gap-1.5 w-full text-left">
+        {label && (
+          <Label htmlFor={id} className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+            {label}
+          </Label>
+        )}
         <input
           type={type}
           value={field.value}
           onChange={field.onChange}
           className={cn(
-            //focus-visible:ring-ring ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-            " placeholder:text-muted-foreground bg-background flex h-10 w-full rounded-md border px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium  disabled:cursor-not-allowed disabled:opacity-50",
-            className,
+            "placeholder:text-muted-foreground bg-background flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-800 px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500",
+            className
           )}
           ref={ref}
           {...props}
         />
         {errors[id] && (
-          <div className="text-sm text-red-600">
+          <div className="text-sm text-red-600 font-medium">
             {errors?.[id]?.message?.toString()}
           </div>
         )}
-      </>
+      </div>
     );
   },
 );

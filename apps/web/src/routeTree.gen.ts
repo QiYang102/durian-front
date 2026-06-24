@@ -11,111 +11,26 @@
 // Import Routes
 
 import { Route as rootRoute } from './pages/__root'
-import { Route as SandboxImport } from './pages/_sandbox'
-import { Route as AuthImport } from './pages/_auth'
-import { Route as AppImport } from './pages/_app'
+import { Route as AdminImport } from './pages/admin'
 import { Route as DurianIndexImport } from './pages/durian/index'
-import { Route as AppIndexImport } from './pages/_app/index'
+import { Route as AdminIndexImport } from './pages/admin/index'
+import { Route as DurianRegisterImport } from './pages/durian/register'
 import { Route as DurianProfileImport } from './pages/durian/profile'
 import { Route as DurianProductsImport } from './pages/durian/products'
 import { Route as DurianLoginImport } from './pages/durian/login'
 import { Route as DurianCheckoutImport } from './pages/durian/checkout'
 import { Route as DurianCartImport } from './pages/durian/cart'
-import { Route as AuthResetPasswordImport } from './pages/_auth/reset-password'
-import { Route as AuthRegisterImport } from './pages/_auth/register'
-import { Route as AuthLoginImport } from './pages/_auth/login'
-import { Route as SandboxSandboxIndexImport } from './pages/_sandbox/sandbox/index'
-import { Route as SandboxDeveloperGuideIndexImport } from './pages/_sandbox/developer-guide/index'
-import { Route as AppUserIndexImport } from './pages/_app/user/index'
-import { Route as AppTestingIndexImport } from './pages/_app/testing/index'
-import { Route as AppTeamIndexImport } from './pages/_app/team/index'
-import { Route as AppTagRegistryIndexImport } from './pages/_app/tag-registry/index'
-import { Route as AppStoryboardIndexImport } from './pages/_app/storyboard/index'
-import { Route as AppStoryDraftedIndexImport } from './pages/_app/story-drafted/index'
-import { Route as AppSeasonSummaryIndexImport } from './pages/_app/season-summary/index'
-import { Route as AppSampleIndexImport } from './pages/_app/sample/index'
-import { Route as AppRoleIndexImport } from './pages/_app/role/index'
-import { Route as AppMyTaskIndexImport } from './pages/_app/my-task/index'
-import { Route as AppLeaveIndexImport } from './pages/_app/leave/index'
-import { Route as AppKopibengIndexImport } from './pages/_app/kopibeng/index'
-import { Route as AppIterationIndexImport } from './pages/_app/iteration/index'
-import { Route as AppDeploymentIndexImport } from './pages/_app/deployment/index'
-import { Route as AppChangePasswordIndexImport } from './pages/_app/change-password/index'
-import { Route as AppAnnouncementIndexImport } from './pages/_app/announcement/index'
-import { Route as AppAccountIndexImport } from './pages/_app/account/index'
-import { Route as AppAccessIndexImport } from './pages/_app/access/index'
-import { Route as SandboxSandboxUploadFileImport } from './pages/_sandbox/sandbox/upload-file'
-import { Route as SandboxSandboxToastImport } from './pages/_sandbox/sandbox/toast'
-import { Route as SandboxSandboxTabImport } from './pages/_sandbox/sandbox/tab'
-import { Route as SandboxSandboxSonnerImport } from './pages/_sandbox/sandbox/sonner'
-import { Route as SandboxSandboxSmallCalendarImport } from './pages/_sandbox/sandbox/small-calendar'
-import { Route as SandboxSandboxSignatureCanvasImport } from './pages/_sandbox/sandbox/signature-canvas'
-import { Route as SandboxSandboxPieChartImport } from './pages/_sandbox/sandbox/pieChart'
-import { Route as SandboxSandboxLoadingImport } from './pages/_sandbox/sandbox/loading'
-import { Route as SandboxSandboxGroupRowTableImport } from './pages/_sandbox/sandbox/group-row-table'
-import { Route as SandboxSandboxForm2Import } from './pages/_sandbox/sandbox/form2'
-import { Route as SandboxSandboxFormImport } from './pages/_sandbox/sandbox/form'
-import { Route as SandboxSandboxCalendarImport } from './pages/_sandbox/sandbox/calendar'
-import { Route as SandboxSandboxButtonImport } from './pages/_sandbox/sandbox/button'
-import { Route as SandboxDeveloperGuideUseMutationImport } from './pages/_sandbox/developer-guide/use-mutation'
-import { Route as SandboxDeveloperGuideToastImport } from './pages/_sandbox/developer-guide/toast'
-import { Route as SandboxDeveloperGuideTextInputImport } from './pages/_sandbox/developer-guide/text-input'
-import { Route as SandboxDeveloperGuideTableSkeletonImport } from './pages/_sandbox/developer-guide/table-skeleton'
-import { Route as SandboxDeveloperGuideQueryApiReferenceImport } from './pages/_sandbox/developer-guide/query-api-reference'
-import { Route as SandboxDeveloperGuidePhoneNumberInputImport } from './pages/_sandbox/developer-guide/phone-number-input'
-import { Route as SandboxDeveloperGuidePaginationImport } from './pages/_sandbox/developer-guide/pagination'
-import { Route as SandboxDeveloperGuideLoadingImport } from './pages/_sandbox/developer-guide/loading'
-import { Route as SandboxDeveloperGuideIconImport } from './pages/_sandbox/developer-guide/icon'
-import { Route as SandboxDeveloperGuideErrorDisplayImport } from './pages/_sandbox/developer-guide/error-display'
-import { Route as SandboxDeveloperGuideDatePickerImport } from './pages/_sandbox/developer-guide/date-picker'
-import { Route as SandboxDeveloperGuideCustomDialogImport } from './pages/_sandbox/developer-guide/custom-dialog'
-import { Route as SandboxDeveloperGuideConfirmDialogImport } from './pages/_sandbox/developer-guide/confirm-dialog'
-import { Route as SandboxDeveloperGuideComboboxImport } from './pages/_sandbox/developer-guide/combobox'
-import { Route as SandboxDeveloperGuideClassicLayoutImport } from './pages/_sandbox/developer-guide/classic-layout'
-import { Route as SandboxDeveloperGuideCheckboxInlineImport } from './pages/_sandbox/developer-guide/checkboxInline'
-import { Route as SandboxDeveloperGuideCheckboxImport } from './pages/_sandbox/developer-guide/checkbox'
-import { Route as SandboxDeveloperGuideButtonImport } from './pages/_sandbox/developer-guide/button'
-import { Route as SandboxDeveloperGuideBadgeImport } from './pages/_sandbox/developer-guide/badge'
-import { Route as SandboxDeveloperGuideAsyncComboboxImport } from './pages/_sandbox/developer-guide/asyncCombobox'
-import { Route as AppUserNewImport } from './pages/_app/user/new'
-import { Route as AppUserUserIdImport } from './pages/_app/user/$userId'
-import { Route as AppTeamNewImport } from './pages/_app/team/new'
-import { Route as AppTeamTeamIdImport } from './pages/_app/team/$teamId'
-import { Route as AppTagRegistryTagIdImport } from './pages/_app/tag-registry/$tagId'
-import { Route as AppStoryStoryIdImport } from './pages/_app/story/$storyId'
-import { Route as AppStoryDraftedNewImport } from './pages/_app/story-drafted/new'
-import { Route as AppStoryDraftedStoryIdImport } from './pages/_app/story-drafted/$storyId'
-import { Route as AppSampleRoleIdImport } from './pages/_app/sample/$roleId'
-import { Route as AppRoleNewImport } from './pages/_app/role/new'
-import { Route as AppRoleRoleIdImport } from './pages/_app/role/$roleId'
-import { Route as AppLeaveNewImport } from './pages/_app/leave/new'
-import { Route as AppLeaveLeaveIdImport } from './pages/_app/leave/$leaveId'
-import { Route as AppKopibengNewImport } from './pages/_app/kopibeng/new'
-import { Route as AppKopibengKopibengIdImport } from './pages/_app/kopibeng/$kopibengId'
-import { Route as AppIterationNewImport } from './pages/_app/iteration/new'
-import { Route as AppIterationListImport } from './pages/_app/iteration/list'
-import { Route as AppDeploymentTemplateImport } from './pages/_app/deployment/template'
-import { Route as AppAnnouncementNewImport } from './pages/_app/announcement/new'
-import { Route as AppAnnouncementAnnouncementIdImport } from './pages/_app/announcement/$announcementId'
-import { Route as AppIterationIterationIdIndexImport } from './pages/_app/iteration/$iterationId/index'
-import { Route as AuthResetPasswordConfirmUidTokenidImport } from './pages/_auth/reset-password-confirm.$uid.$tokenid'
-import { Route as AppTaskTaskIdTaskHoursImport } from './pages/_app/task/$taskId/task-hours'
-import { Route as AppIterationIterationIdStoryImport } from './pages/_app/iteration/$iterationId/story'
+import { Route as DurianAboutImport } from './pages/durian/about'
+import { Route as AdminSettingsImport } from './pages/admin/settings'
+import { Route as AdminPromoCodesImport } from './pages/admin/promo-codes'
+import { Route as AdminProductsImport } from './pages/admin/products'
+import { Route as AdminOrdersImport } from './pages/admin/orders'
+import { Route as AdminBannersImport } from './pages/admin/banners'
 
 // Create/Update Routes
 
-const SandboxRoute = SandboxImport.update({
-  id: '/_sandbox',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AppRoute = AppImport.update({
-  id: '/_app',
+const AdminRoute = AdminImport.update({
+  path: '/admin',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -124,9 +39,14 @@ const DurianIndexRoute = DurianIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppIndexRoute = AppIndexImport.update({
+const AdminIndexRoute = AdminIndexImport.update({
   path: '/',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AdminRoute,
+} as any)
+
+const DurianRegisterRoute = DurianRegisterImport.update({
+  path: '/durian/register',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const DurianProfileRoute = DurianProfileImport.update({
@@ -154,463 +74,67 @@ const DurianCartRoute = DurianCartImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthResetPasswordRoute = AuthResetPasswordImport.update({
-  path: '/reset-password',
-  getParentRoute: () => AuthRoute,
+const DurianAboutRoute = DurianAboutImport.update({
+  path: '/durian/about',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const AuthRegisterRoute = AuthRegisterImport.update({
-  path: '/register',
-  getParentRoute: () => AuthRoute,
+const AdminSettingsRoute = AdminSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
 } as any)
 
-const AuthLoginRoute = AuthLoginImport.update({
-  path: '/login',
-  getParentRoute: () => AuthRoute,
+const AdminPromoCodesRoute = AdminPromoCodesImport.update({
+  path: '/promo-codes',
+  getParentRoute: () => AdminRoute,
 } as any)
 
-const SandboxSandboxIndexRoute = SandboxSandboxIndexImport.update({
-  path: '/sandbox/',
-  getParentRoute: () => SandboxRoute,
+const AdminProductsRoute = AdminProductsImport.update({
+  path: '/products',
+  getParentRoute: () => AdminRoute,
 } as any)
 
-const SandboxDeveloperGuideIndexRoute = SandboxDeveloperGuideIndexImport.update(
-  {
-    path: '/developer-guide/',
-    getParentRoute: () => SandboxRoute,
-  } as any,
-)
-
-const AppUserIndexRoute = AppUserIndexImport.update({
-  path: '/user/',
-  getParentRoute: () => AppRoute,
+const AdminOrdersRoute = AdminOrdersImport.update({
+  path: '/orders',
+  getParentRoute: () => AdminRoute,
 } as any)
 
-const AppTestingIndexRoute = AppTestingIndexImport.update({
-  path: '/testing/',
-  getParentRoute: () => AppRoute,
+const AdminBannersRoute = AdminBannersImport.update({
+  path: '/banners',
+  getParentRoute: () => AdminRoute,
 } as any)
-
-const AppTeamIndexRoute = AppTeamIndexImport.update({
-  path: '/team/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppTagRegistryIndexRoute = AppTagRegistryIndexImport.update({
-  path: '/tag-registry/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppStoryboardIndexRoute = AppStoryboardIndexImport.update({
-  path: '/storyboard/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppStoryDraftedIndexRoute = AppStoryDraftedIndexImport.update({
-  path: '/story-drafted/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppSeasonSummaryIndexRoute = AppSeasonSummaryIndexImport.update({
-  path: '/season-summary/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppSampleIndexRoute = AppSampleIndexImport.update({
-  path: '/sample/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppRoleIndexRoute = AppRoleIndexImport.update({
-  path: '/role/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppMyTaskIndexRoute = AppMyTaskIndexImport.update({
-  path: '/my-task/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppLeaveIndexRoute = AppLeaveIndexImport.update({
-  path: '/leave/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppKopibengIndexRoute = AppKopibengIndexImport.update({
-  path: '/kopibeng/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppIterationIndexRoute = AppIterationIndexImport.update({
-  path: '/iteration/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppDeploymentIndexRoute = AppDeploymentIndexImport.update({
-  path: '/deployment/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppChangePasswordIndexRoute = AppChangePasswordIndexImport.update({
-  path: '/change-password/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppAnnouncementIndexRoute = AppAnnouncementIndexImport.update({
-  path: '/announcement/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppAccountIndexRoute = AppAccountIndexImport.update({
-  path: '/account/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppAccessIndexRoute = AppAccessIndexImport.update({
-  path: '/access/',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const SandboxSandboxUploadFileRoute = SandboxSandboxUploadFileImport.update({
-  path: '/sandbox/upload-file',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxToastRoute = SandboxSandboxToastImport.update({
-  path: '/sandbox/toast',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxTabRoute = SandboxSandboxTabImport.update({
-  path: '/sandbox/tab',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxSonnerRoute = SandboxSandboxSonnerImport.update({
-  path: '/sandbox/sonner',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxSmallCalendarRoute =
-  SandboxSandboxSmallCalendarImport.update({
-    path: '/sandbox/small-calendar',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxSandboxSignatureCanvasRoute =
-  SandboxSandboxSignatureCanvasImport.update({
-    path: '/sandbox/signature-canvas',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxSandboxPieChartRoute = SandboxSandboxPieChartImport.update({
-  path: '/sandbox/pieChart',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxLoadingRoute = SandboxSandboxLoadingImport.update({
-  path: '/sandbox/loading',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxGroupRowTableRoute =
-  SandboxSandboxGroupRowTableImport.update({
-    path: '/sandbox/group-row-table',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxSandboxForm2Route = SandboxSandboxForm2Import.update({
-  path: '/sandbox/form2',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxFormRoute = SandboxSandboxFormImport.update({
-  path: '/sandbox/form',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxCalendarRoute = SandboxSandboxCalendarImport.update({
-  path: '/sandbox/calendar',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxSandboxButtonRoute = SandboxSandboxButtonImport.update({
-  path: '/sandbox/button',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxDeveloperGuideUseMutationRoute =
-  SandboxDeveloperGuideUseMutationImport.update({
-    path: '/developer-guide/use-mutation',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideToastRoute = SandboxDeveloperGuideToastImport.update(
-  {
-    path: '/developer-guide/toast',
-    getParentRoute: () => SandboxRoute,
-  } as any,
-)
-
-const SandboxDeveloperGuideTextInputRoute =
-  SandboxDeveloperGuideTextInputImport.update({
-    path: '/developer-guide/text-input',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideTableSkeletonRoute =
-  SandboxDeveloperGuideTableSkeletonImport.update({
-    path: '/developer-guide/table-skeleton',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideQueryApiReferenceRoute =
-  SandboxDeveloperGuideQueryApiReferenceImport.update({
-    path: '/developer-guide/query-api-reference',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuidePhoneNumberInputRoute =
-  SandboxDeveloperGuidePhoneNumberInputImport.update({
-    path: '/developer-guide/phone-number-input',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuidePaginationRoute =
-  SandboxDeveloperGuidePaginationImport.update({
-    path: '/developer-guide/pagination',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideLoadingRoute =
-  SandboxDeveloperGuideLoadingImport.update({
-    path: '/developer-guide/loading',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideIconRoute = SandboxDeveloperGuideIconImport.update({
-  path: '/developer-guide/icon',
-  getParentRoute: () => SandboxRoute,
-} as any)
-
-const SandboxDeveloperGuideErrorDisplayRoute =
-  SandboxDeveloperGuideErrorDisplayImport.update({
-    path: '/developer-guide/error-display',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideDatePickerRoute =
-  SandboxDeveloperGuideDatePickerImport.update({
-    path: '/developer-guide/date-picker',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideCustomDialogRoute =
-  SandboxDeveloperGuideCustomDialogImport.update({
-    path: '/developer-guide/custom-dialog',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideConfirmDialogRoute =
-  SandboxDeveloperGuideConfirmDialogImport.update({
-    path: '/developer-guide/confirm-dialog',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideComboboxRoute =
-  SandboxDeveloperGuideComboboxImport.update({
-    path: '/developer-guide/combobox',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideClassicLayoutRoute =
-  SandboxDeveloperGuideClassicLayoutImport.update({
-    path: '/developer-guide/classic-layout',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideCheckboxInlineRoute =
-  SandboxDeveloperGuideCheckboxInlineImport.update({
-    path: '/developer-guide/checkboxInline',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideCheckboxRoute =
-  SandboxDeveloperGuideCheckboxImport.update({
-    path: '/developer-guide/checkbox',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideButtonRoute =
-  SandboxDeveloperGuideButtonImport.update({
-    path: '/developer-guide/button',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const SandboxDeveloperGuideBadgeRoute = SandboxDeveloperGuideBadgeImport.update(
-  {
-    path: '/developer-guide/badge',
-    getParentRoute: () => SandboxRoute,
-  } as any,
-)
-
-const SandboxDeveloperGuideAsyncComboboxRoute =
-  SandboxDeveloperGuideAsyncComboboxImport.update({
-    path: '/developer-guide/asyncCombobox',
-    getParentRoute: () => SandboxRoute,
-  } as any)
-
-const AppUserNewRoute = AppUserNewImport.update({
-  path: '/user/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppUserUserIdRoute = AppUserUserIdImport.update({
-  path: '/user/$userId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppTeamNewRoute = AppTeamNewImport.update({
-  path: '/team/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppTeamTeamIdRoute = AppTeamTeamIdImport.update({
-  path: '/team/$teamId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppTagRegistryTagIdRoute = AppTagRegistryTagIdImport.update({
-  path: '/tag-registry/$tagId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppStoryStoryIdRoute = AppStoryStoryIdImport.update({
-  path: '/story/$storyId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppStoryDraftedNewRoute = AppStoryDraftedNewImport.update({
-  path: '/story-drafted/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppStoryDraftedStoryIdRoute = AppStoryDraftedStoryIdImport.update({
-  path: '/story-drafted/$storyId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppSampleRoleIdRoute = AppSampleRoleIdImport.update({
-  path: '/sample/$roleId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppRoleNewRoute = AppRoleNewImport.update({
-  path: '/role/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppRoleRoleIdRoute = AppRoleRoleIdImport.update({
-  path: '/role/$roleId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppLeaveNewRoute = AppLeaveNewImport.update({
-  path: '/leave/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppLeaveLeaveIdRoute = AppLeaveLeaveIdImport.update({
-  path: '/leave/$leaveId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppKopibengNewRoute = AppKopibengNewImport.update({
-  path: '/kopibeng/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppKopibengKopibengIdRoute = AppKopibengKopibengIdImport.update({
-  path: '/kopibeng/$kopibengId',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppIterationNewRoute = AppIterationNewImport.update({
-  path: '/iteration/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppIterationListRoute = AppIterationListImport.update({
-  path: '/iteration/list',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppDeploymentTemplateRoute = AppDeploymentTemplateImport.update({
-  path: '/deployment/template',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppAnnouncementNewRoute = AppAnnouncementNewImport.update({
-  path: '/announcement/new',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppAnnouncementAnnouncementIdRoute =
-  AppAnnouncementAnnouncementIdImport.update({
-    path: '/announcement/$announcementId',
-    getParentRoute: () => AppRoute,
-  } as any)
-
-const AppIterationIterationIdIndexRoute =
-  AppIterationIterationIdIndexImport.update({
-    path: '/iteration/$iterationId/',
-    getParentRoute: () => AppRoute,
-  } as any)
-
-const AuthResetPasswordConfirmUidTokenidRoute =
-  AuthResetPasswordConfirmUidTokenidImport.update({
-    path: '/reset-password-confirm/$uid/$tokenid',
-    getParentRoute: () => AuthRoute,
-  } as any)
-
-const AppTaskTaskIdTaskHoursRoute = AppTaskTaskIdTaskHoursImport.update({
-  path: '/task/$taskId/task-hours',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppIterationIterationIdStoryRoute =
-  AppIterationIterationIdStoryImport.update({
-    path: '/iteration/$iterationId/story',
-    getParentRoute: () => AppRoute,
-  } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_app': {
-      preLoaderRoute: typeof AppImport
+    '/admin': {
+      preLoaderRoute: typeof AdminImport
       parentRoute: typeof rootRoute
     }
-    '/_auth': {
-      preLoaderRoute: typeof AuthImport
+    '/admin/banners': {
+      preLoaderRoute: typeof AdminBannersImport
+      parentRoute: typeof AdminImport
+    }
+    '/admin/orders': {
+      preLoaderRoute: typeof AdminOrdersImport
+      parentRoute: typeof AdminImport
+    }
+    '/admin/products': {
+      preLoaderRoute: typeof AdminProductsImport
+      parentRoute: typeof AdminImport
+    }
+    '/admin/promo-codes': {
+      preLoaderRoute: typeof AdminPromoCodesImport
+      parentRoute: typeof AdminImport
+    }
+    '/admin/settings': {
+      preLoaderRoute: typeof AdminSettingsImport
+      parentRoute: typeof AdminImport
+    }
+    '/durian/about': {
+      preLoaderRoute: typeof DurianAboutImport
       parentRoute: typeof rootRoute
-    }
-    '/_sandbox': {
-      preLoaderRoute: typeof SandboxImport
-      parentRoute: typeof rootRoute
-    }
-    '/_auth/login': {
-      preLoaderRoute: typeof AuthLoginImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/register': {
-      preLoaderRoute: typeof AuthRegisterImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/reset-password': {
-      preLoaderRoute: typeof AuthResetPasswordImport
-      parentRoute: typeof AuthImport
     }
     '/durian/cart': {
       preLoaderRoute: typeof DurianCartImport
@@ -632,321 +156,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DurianProfileImport
       parentRoute: typeof rootRoute
     }
-    '/_app/': {
-      preLoaderRoute: typeof AppIndexImport
-      parentRoute: typeof AppImport
+    '/durian/register': {
+      preLoaderRoute: typeof DurianRegisterImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/': {
+      preLoaderRoute: typeof AdminIndexImport
+      parentRoute: typeof AdminImport
     }
     '/durian/': {
       preLoaderRoute: typeof DurianIndexImport
       parentRoute: typeof rootRoute
-    }
-    '/_app/announcement/$announcementId': {
-      preLoaderRoute: typeof AppAnnouncementAnnouncementIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/announcement/new': {
-      preLoaderRoute: typeof AppAnnouncementNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/deployment/template': {
-      preLoaderRoute: typeof AppDeploymentTemplateImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/iteration/list': {
-      preLoaderRoute: typeof AppIterationListImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/iteration/new': {
-      preLoaderRoute: typeof AppIterationNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/kopibeng/$kopibengId': {
-      preLoaderRoute: typeof AppKopibengKopibengIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/kopibeng/new': {
-      preLoaderRoute: typeof AppKopibengNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/leave/$leaveId': {
-      preLoaderRoute: typeof AppLeaveLeaveIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/leave/new': {
-      preLoaderRoute: typeof AppLeaveNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/role/$roleId': {
-      preLoaderRoute: typeof AppRoleRoleIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/role/new': {
-      preLoaderRoute: typeof AppRoleNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/sample/$roleId': {
-      preLoaderRoute: typeof AppSampleRoleIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/story-drafted/$storyId': {
-      preLoaderRoute: typeof AppStoryDraftedStoryIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/story-drafted/new': {
-      preLoaderRoute: typeof AppStoryDraftedNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/story/$storyId': {
-      preLoaderRoute: typeof AppStoryStoryIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/tag-registry/$tagId': {
-      preLoaderRoute: typeof AppTagRegistryTagIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/team/$teamId': {
-      preLoaderRoute: typeof AppTeamTeamIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/team/new': {
-      preLoaderRoute: typeof AppTeamNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/user/$userId': {
-      preLoaderRoute: typeof AppUserUserIdImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/user/new': {
-      preLoaderRoute: typeof AppUserNewImport
-      parentRoute: typeof AppImport
-    }
-    '/_sandbox/developer-guide/asyncCombobox': {
-      preLoaderRoute: typeof SandboxDeveloperGuideAsyncComboboxImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/badge': {
-      preLoaderRoute: typeof SandboxDeveloperGuideBadgeImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/button': {
-      preLoaderRoute: typeof SandboxDeveloperGuideButtonImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/checkbox': {
-      preLoaderRoute: typeof SandboxDeveloperGuideCheckboxImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/checkboxInline': {
-      preLoaderRoute: typeof SandboxDeveloperGuideCheckboxInlineImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/classic-layout': {
-      preLoaderRoute: typeof SandboxDeveloperGuideClassicLayoutImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/combobox': {
-      preLoaderRoute: typeof SandboxDeveloperGuideComboboxImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/confirm-dialog': {
-      preLoaderRoute: typeof SandboxDeveloperGuideConfirmDialogImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/custom-dialog': {
-      preLoaderRoute: typeof SandboxDeveloperGuideCustomDialogImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/date-picker': {
-      preLoaderRoute: typeof SandboxDeveloperGuideDatePickerImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/error-display': {
-      preLoaderRoute: typeof SandboxDeveloperGuideErrorDisplayImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/icon': {
-      preLoaderRoute: typeof SandboxDeveloperGuideIconImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/loading': {
-      preLoaderRoute: typeof SandboxDeveloperGuideLoadingImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/pagination': {
-      preLoaderRoute: typeof SandboxDeveloperGuidePaginationImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/phone-number-input': {
-      preLoaderRoute: typeof SandboxDeveloperGuidePhoneNumberInputImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/query-api-reference': {
-      preLoaderRoute: typeof SandboxDeveloperGuideQueryApiReferenceImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/table-skeleton': {
-      preLoaderRoute: typeof SandboxDeveloperGuideTableSkeletonImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/text-input': {
-      preLoaderRoute: typeof SandboxDeveloperGuideTextInputImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/toast': {
-      preLoaderRoute: typeof SandboxDeveloperGuideToastImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/developer-guide/use-mutation': {
-      preLoaderRoute: typeof SandboxDeveloperGuideUseMutationImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/button': {
-      preLoaderRoute: typeof SandboxSandboxButtonImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/calendar': {
-      preLoaderRoute: typeof SandboxSandboxCalendarImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/form': {
-      preLoaderRoute: typeof SandboxSandboxFormImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/form2': {
-      preLoaderRoute: typeof SandboxSandboxForm2Import
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/group-row-table': {
-      preLoaderRoute: typeof SandboxSandboxGroupRowTableImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/loading': {
-      preLoaderRoute: typeof SandboxSandboxLoadingImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/pieChart': {
-      preLoaderRoute: typeof SandboxSandboxPieChartImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/signature-canvas': {
-      preLoaderRoute: typeof SandboxSandboxSignatureCanvasImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/small-calendar': {
-      preLoaderRoute: typeof SandboxSandboxSmallCalendarImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/sonner': {
-      preLoaderRoute: typeof SandboxSandboxSonnerImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/tab': {
-      preLoaderRoute: typeof SandboxSandboxTabImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/toast': {
-      preLoaderRoute: typeof SandboxSandboxToastImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/upload-file': {
-      preLoaderRoute: typeof SandboxSandboxUploadFileImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_app/access/': {
-      preLoaderRoute: typeof AppAccessIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/account/': {
-      preLoaderRoute: typeof AppAccountIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/announcement/': {
-      preLoaderRoute: typeof AppAnnouncementIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/change-password/': {
-      preLoaderRoute: typeof AppChangePasswordIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/deployment/': {
-      preLoaderRoute: typeof AppDeploymentIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/iteration/': {
-      preLoaderRoute: typeof AppIterationIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/kopibeng/': {
-      preLoaderRoute: typeof AppKopibengIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/leave/': {
-      preLoaderRoute: typeof AppLeaveIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/my-task/': {
-      preLoaderRoute: typeof AppMyTaskIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/role/': {
-      preLoaderRoute: typeof AppRoleIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/sample/': {
-      preLoaderRoute: typeof AppSampleIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/season-summary/': {
-      preLoaderRoute: typeof AppSeasonSummaryIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/story-drafted/': {
-      preLoaderRoute: typeof AppStoryDraftedIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/storyboard/': {
-      preLoaderRoute: typeof AppStoryboardIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/tag-registry/': {
-      preLoaderRoute: typeof AppTagRegistryIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/team/': {
-      preLoaderRoute: typeof AppTeamIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/testing/': {
-      preLoaderRoute: typeof AppTestingIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/user/': {
-      preLoaderRoute: typeof AppUserIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/_sandbox/developer-guide/': {
-      preLoaderRoute: typeof SandboxDeveloperGuideIndexImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_sandbox/sandbox/': {
-      preLoaderRoute: typeof SandboxSandboxIndexImport
-      parentRoute: typeof SandboxImport
-    }
-    '/_app/iteration/$iterationId/story': {
-      preLoaderRoute: typeof AppIterationIterationIdStoryImport
-      parentRoute: typeof AppImport
-    }
-    '/_app/task/$taskId/task-hours': {
-      preLoaderRoute: typeof AppTaskTaskIdTaskHoursImport
-      parentRoute: typeof AppImport
-    }
-    '/_auth/reset-password-confirm/$uid/$tokenid': {
-      preLoaderRoute: typeof AuthResetPasswordConfirmUidTokenidImport
-      parentRoute: typeof AuthImport
-    }
-    '/_app/iteration/$iterationId/': {
-      preLoaderRoute: typeof AppIterationIterationIdIndexImport
-      parentRoute: typeof AppImport
     }
   }
 }
@@ -954,98 +174,21 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  AppRoute.addChildren([
-    AppIndexRoute,
-    AppAnnouncementAnnouncementIdRoute,
-    AppAnnouncementNewRoute,
-    AppDeploymentTemplateRoute,
-    AppIterationListRoute,
-    AppIterationNewRoute,
-    AppKopibengKopibengIdRoute,
-    AppKopibengNewRoute,
-    AppLeaveLeaveIdRoute,
-    AppLeaveNewRoute,
-    AppRoleRoleIdRoute,
-    AppRoleNewRoute,
-    AppSampleRoleIdRoute,
-    AppStoryDraftedStoryIdRoute,
-    AppStoryDraftedNewRoute,
-    AppStoryStoryIdRoute,
-    AppTagRegistryTagIdRoute,
-    AppTeamTeamIdRoute,
-    AppTeamNewRoute,
-    AppUserUserIdRoute,
-    AppUserNewRoute,
-    AppAccessIndexRoute,
-    AppAccountIndexRoute,
-    AppAnnouncementIndexRoute,
-    AppChangePasswordIndexRoute,
-    AppDeploymentIndexRoute,
-    AppIterationIndexRoute,
-    AppKopibengIndexRoute,
-    AppLeaveIndexRoute,
-    AppMyTaskIndexRoute,
-    AppRoleIndexRoute,
-    AppSampleIndexRoute,
-    AppSeasonSummaryIndexRoute,
-    AppStoryDraftedIndexRoute,
-    AppStoryboardIndexRoute,
-    AppTagRegistryIndexRoute,
-    AppTeamIndexRoute,
-    AppTestingIndexRoute,
-    AppUserIndexRoute,
-    AppIterationIterationIdStoryRoute,
-    AppTaskTaskIdTaskHoursRoute,
-    AppIterationIterationIdIndexRoute,
+  AdminRoute.addChildren([
+    AdminBannersRoute,
+    AdminOrdersRoute,
+    AdminProductsRoute,
+    AdminPromoCodesRoute,
+    AdminSettingsRoute,
+    AdminIndexRoute,
   ]),
-  AuthRoute.addChildren([
-    AuthLoginRoute,
-    AuthRegisterRoute,
-    AuthResetPasswordRoute,
-    AuthResetPasswordConfirmUidTokenidRoute,
-  ]),
-  SandboxRoute.addChildren([
-    SandboxDeveloperGuideAsyncComboboxRoute,
-    SandboxDeveloperGuideBadgeRoute,
-    SandboxDeveloperGuideButtonRoute,
-    SandboxDeveloperGuideCheckboxRoute,
-    SandboxDeveloperGuideCheckboxInlineRoute,
-    SandboxDeveloperGuideClassicLayoutRoute,
-    SandboxDeveloperGuideComboboxRoute,
-    SandboxDeveloperGuideConfirmDialogRoute,
-    SandboxDeveloperGuideCustomDialogRoute,
-    SandboxDeveloperGuideDatePickerRoute,
-    SandboxDeveloperGuideErrorDisplayRoute,
-    SandboxDeveloperGuideIconRoute,
-    SandboxDeveloperGuideLoadingRoute,
-    SandboxDeveloperGuidePaginationRoute,
-    SandboxDeveloperGuidePhoneNumberInputRoute,
-    SandboxDeveloperGuideQueryApiReferenceRoute,
-    SandboxDeveloperGuideTableSkeletonRoute,
-    SandboxDeveloperGuideTextInputRoute,
-    SandboxDeveloperGuideToastRoute,
-    SandboxDeveloperGuideUseMutationRoute,
-    SandboxSandboxButtonRoute,
-    SandboxSandboxCalendarRoute,
-    SandboxSandboxFormRoute,
-    SandboxSandboxForm2Route,
-    SandboxSandboxGroupRowTableRoute,
-    SandboxSandboxLoadingRoute,
-    SandboxSandboxPieChartRoute,
-    SandboxSandboxSignatureCanvasRoute,
-    SandboxSandboxSmallCalendarRoute,
-    SandboxSandboxSonnerRoute,
-    SandboxSandboxTabRoute,
-    SandboxSandboxToastRoute,
-    SandboxSandboxUploadFileRoute,
-    SandboxDeveloperGuideIndexRoute,
-    SandboxSandboxIndexRoute,
-  ]),
+  DurianAboutRoute,
   DurianCartRoute,
   DurianCheckoutRoute,
   DurianLoginRoute,
   DurianProductsRoute,
   DurianProfileRoute,
+  DurianRegisterRoute,
   DurianIndexRoute,
 ])
 

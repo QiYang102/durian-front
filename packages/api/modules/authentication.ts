@@ -53,3 +53,18 @@ export const useResetPasswordConfirm = (opts?: UseMutationOptions<{}, {}>) => {
     ...opts,
   });
 };
+
+export const useAuthRegister = () => {
+  const { mutate } = useFetch();
+
+  const postRegister = (data: any) =>
+    axiosClient
+      .post("/rest-auth/registration", data)
+      .then(async (response) => response.data);
+
+  return mutate<any, any>(
+    ["register"],
+    [],
+    postRegister
+  );
+};

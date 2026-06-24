@@ -27,44 +27,52 @@ function RootComponent() {
   const router = useRouter();
 
   // Public routes that don't require authentication
-  const publicRoutes = ["/login", "/register", "/reset-password", "/durian", "/durian/", "/durian/products", "/durian/cart", "/durian/checkout", "/durian/profile", "/durian/login"];
+  const publicRoutes = ["/durian", "/durian/", "/durian/products", "/durian/cart", "/durian/checkout", "/durian/profile", "/durian/login"];
 
   useEffect(() => {
-    const currentPath = window.location.pathname;
+    const currentPath = router.state.location.pathname;
 
     if (isLoading || isLoggingOut) {
       return;
     }
 
-    // const isPublicRoute = publicRoutes.includes(currentPath);
-    const isPublicRoute =
-      publicRoutes.includes(currentPath) ||
-      /^\/reset-password-confirm\/[^/]+\/[^/]+$/.test(currentPath);
+    const isPublicRoute = publicRoutes.some(
+      (route) => currentPath === route || currentPath.startsWith("/durian/")
+    );
 
+    // Redirect root to /durian
     if (currentPath === "/") {
       navigate({ to: "/durian", replace: true });
       return;
     }
 
-    if (!user && !accessToken) {
-      if (isPublicRoute) {
-        if (window.location.pathname !== currentPath) {
-          navigate({
-            to: currentPath,
-            replace: true,
-          });
-        }
-      } else {
-        const fullOriginalPath = currentPath + window.location.search;
+    // If on a public route, allow access
+    if (isPublicRoute) {
+      return;
+    }
 
-        if (currentPath !== "/login") {
-          navigate({
-            to: "/login",
-            search: { redirectURL: encodeURIComponent(fullOriginalPath) },
-            replace: true,
-          });
-        }
-      }
+    // Now we are on a protected route (admin panel)
+    // If accessToken is present but user profile is still loading, wait for it
+    if (accessToken && !user) {
+      return;
+    }
+
+    // If not authenticated, redirect to login
+    if (!user && !accessToken) {
+      navigate({
+        to: "/durian/login",
+        replace: true,
+      });
+      return;
+    }
+
+    // If authenticated but not an admin, redirect to storefront
+    if (user && user.role !== "admin") {
+      navigate({
+        to: "/durian",
+        replace: true,
+      });
+      return;
     }
   }, [
     user,

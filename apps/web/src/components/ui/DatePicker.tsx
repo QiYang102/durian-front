@@ -5,6 +5,7 @@ import { forwardRef } from "react";
 import { CalendarDays, X } from "lucide-react";
 import moment from "moment";
 import { useController } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Calendar } from "@/components/ui/CalendarV1";
 import {
@@ -124,7 +125,7 @@ export const DatePicker = forwardRef(
                   selected={field.value}
                   onSelect={(data) => {
                     if (props.disableDates && props.disableDates(data)) {
-                      alert(
+                      toast.error(
                         "This date is disabled. Please select another date.",
                       );
                       return;
