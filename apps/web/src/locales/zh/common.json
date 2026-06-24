@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "首页",
+    "users": "用户",
+    "settings": "设置"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "back": "返回"
+  }
+}

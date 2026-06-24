@@ -1,0 +1,62 @@
+{
+  "profile": {
+    "title": "Profile",
+    "form": {
+      "fields": {
+        "fullname": {
+          "label": "Full Name as Per NRIC / Passport",
+          "placeholder": "Enter Your Name",
+          "required": "Full name is required",
+          "maxLength": "Full name must be 100 characters or less"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter Your Email",
+          "required": "Email is required",
+          "invalid": "Invalid email address"
+        },
+        "mobile": {
+          "label": "Mobile Number",
+          "placeholder": "Enter mobile number",
+          "invalid": "Invalid phone number format"
+        }
+      }
+    },
+    "toast": {
+      "update": {
+        "success": {
+          "title": "User Updated",
+          "description": "User updated successfully."
+        },
+        "error": {
+          "title": "Error",
+          "description": "An error occurred while updating the user"
+        }
+      },
+      "delete": {
+        "success": {
+          "title": "User Deleted",
+          "description": "User deleted successfully."
+        },
+        "error": {
+          "title": "Error",
+          "description": "Something went wrong while deleting the user!"
+        }
+      }
+    },
+    "loading": {
+      "userDetails": "Loading user details..."
+    },
+    "error": {
+      "loadingUser": {
+        "title": "Error Loading User",
+        "message": "We encountered an error while loading the user. Please try again.",
+        "retry": "Reload Data"
+      }
+    },
+    "button": {
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@ttm/storage",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write . --ignore-path ../../.gitignore"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "1.18.2",
+    "expo-secure-store": "12.3.1",
+    "react": "^18.2.0",
+    "react-native": "^0.72.7"
+  },
+  "devDependencies": {
+    "@ttm/prettier-config": "^0.1.0"
+  },
+  "prettier": "@ttm/prettier-config"
+}

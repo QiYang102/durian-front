@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Home",
+    "users": "Users",
+    "settings": "Settings"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back"
+  }
+}

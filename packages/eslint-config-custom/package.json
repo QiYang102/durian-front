@@ -1,0 +1,16 @@
+{
+  "name": "@ttm/eslint-config-custom",
+  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write . --ignore-path ../../.gitignore"
+  },
+  "devDependencies": {
+    "@vercel/style-guide": "^5.0.0",
+    "eslint-config-turbo": "^1.10.12",
+    "typescript": "^4.5.3",
+    "@ttm/prettier-config": "^0.1.0"
+  },
+  "prettier": "@ttm/prettier-config"
+}

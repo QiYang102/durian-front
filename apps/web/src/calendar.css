@@ -1,0 +1,43 @@
+@import "react-big-calendar/lib/css/react-big-calendar.css";
+
+.rbc-calendar {
+  border-radius: 20px;
+}
+
+.rbc-off-range-bg {
+  background-color: white;
+}
+
+.rbc-off-range {
+  color: #cbd5e1;
+}
+
+.rbc-today {
+  background-color: rgb(0, 0, 0, 0.1);
+}
+
+.rbc-month-view,
+.rbc-time-view {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #dadce0;
+  background-color: #fff;
+}
+
+.rbc-calendar {
+  border: none; /* Remove default outer border if present */
+}
+
+.rbc-header {
+  border-top: none;
+  padding: 8px;
+  width: 10px;
+  height: 50px;
+}
+
+/* 3. Adjust the padding of the events within that top row */
+.rbc-allday-cell {
+  margin-top: 20px;
+  margin-bottom: 2px;
+  background-color: transparent;
+}

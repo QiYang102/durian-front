@@ -1,0 +1,23 @@
+{
+  "name": "@ttm/api",
+  "version": "0.1.0",
+  "description": "All backend API logic is defined and handled here",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write . --ignore-path ../../.gitignore"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ttm/storage": "^0.1.0",
+    "@tanstack/react-query": "^5.0.0",
+    "axios": "^1.6.2",
+    "pluralize": "^8.0.0"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.0.0",
+    "@ttm/prettier-config": "^0.1.0"
+  },
+  "prettier": "@ttm/prettier-config"
+}

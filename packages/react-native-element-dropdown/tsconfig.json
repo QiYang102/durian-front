@@ -1,0 +1,11 @@
+{
+  "extends": "@ttm/tsconfig/base",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "paths": {
+      "react": ["./node_modules/@types/react"],
+      "react-native": ["./node_modules/@types/react-native"]
+    }
+  },
+  "exclude": ["node_modules"]
+}

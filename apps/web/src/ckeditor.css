@@ -1,0 +1,28 @@
+@media print {
+  body {
+    margin: 0 !important;
+  }
+}
+
+:root {
+  --ck-content-font-family: ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif;
+}
+
+.main-container {
+  font-family: var(--ck-content-font-family);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+  min-width: 795px;
+  max-width: 795px;
+}
+
+.ck-content {
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+}

@@ -1,0 +1,160 @@
+{
+  "user": {
+    "userListing": {
+      "title": {
+        "userList": "User List"
+      },
+      "table": {
+        "columns": {
+          "id": "ID",
+          "fullname": "Full Name",
+          "email": "Email",
+          "mobile": "Mobile",
+          "role": "Role"
+        },
+        "noResults": "No results.",
+        "totalResults": "{{count}} total"
+      },
+      "filter": {
+        "search": "Search",
+        "role": "Role"
+      },
+      "button": {
+        "createUser": "Create"
+      }
+    },
+
+    "userForm": {
+      "title": {
+        "editUser": "Edit User",
+        "createUser": "Create New User"
+      },
+      "form": {
+        "fields": {
+          "fullname": {
+            "label": "Full Name as Per NRIC / Passport",
+            "placeholder": "Enter Your Name",
+            "required": "Full name is required",
+            "maxLength": "Full name must be 100 characters or less"
+          },
+          "username": {
+            "label": "Username",
+            "placeholder": "Enter a username",
+            "required": "Username is required",
+            "maxLength": "Username must be 20 characters or less"
+          },
+          "role": {
+            "label": "Role",
+            "placeholder": "Select Role",
+            "required": "Role is required"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Enter Your Email",
+            "required": "Email is required",
+            "invalid": "Invalid email address"
+          },
+          "mobile": {
+            "label": "Mobile Number",
+            "placeholder": "Enter mobile number",
+            "invalid": "Invalid phone number format"
+          },
+          "address": {
+            "label": "Address",
+            "placeholder": "Enter Your Address",
+            "maxLength": "Address must be 512 characters or less"
+          },
+          "postcode": {
+            "label": "PostCode",
+            "placeholder": "Enter Postcode",
+            "maxLength": "Postcode must be 16 characters or less"
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Enter City Name",
+            "maxLength": "City must be 255 characters or less"
+          },
+          "state": {
+            "label": "State",
+            "placeholder": "Select State",
+            "maxLength": "State must be 64 characters or less"
+          },
+          "country": {
+            "label": "Country",
+            "placeholder": "Select Country",
+            "maxLength": "Country must be 64 characters or less"
+          }
+        }
+      },
+      "dialog": {
+        "confirmDelete": {
+          "title": "Confirm Deletion",
+          "content": "Are you sure you want to delete this user? THIS ACTION CANNOT BE UNDONE.",
+          "confirm": "Yes",
+          "cancel": "No"
+        }
+      },
+      "toast": {
+        "update": {
+          "success": {
+            "title": "User Updated",
+            "description": "User updated successfully."
+          },
+          "error": {
+            "title": "Error",
+            "description": "An error occurred while updating the user"
+          }
+        },
+        "delete": {
+          "success": {
+            "title": "User Deleted",
+            "description": "User deleted successfully."
+          },
+          "error": {
+            "title": "Error",
+            "description": "Something went wrong while deleting the user!"
+          }
+        }
+      },
+      "loading": {
+        "userDetails": "Loading user details..."
+      },
+      "error": {
+        "loadingUser": {
+          "title": "Error Loading User",
+          "message": "We encountered an error while loading the user. Please try again.",
+          "retry": "Reload Data"
+        }
+      },
+      "button": {
+        "delete": "Delete",
+        "deleting": "Deleting...",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "states": {
+        "Johor": "Johor",
+        "Kedah": "Kedah",
+        "Kelantan": "Kelantan",
+        "Malaka": "Melaka",
+        "Negeri Sembilan": "Negeri Sembilan",
+        "Pahang": "Pahang",
+        "Penang": "Penang",
+        "Perak": "Perak",
+        "Perlis": "Perlis",
+        "Sabah": "Sabah",
+        "Sarawak": "Sarawak",
+        "Selangor": "Selangor",
+        "Terengganu": "Terengganu",
+        "Kuala Lumpur": "Kuala Lumpur",
+        "Labuan": "Labuan",
+        "Putrajaya": "Putrajaya"
+      },
+
+      "countries": {
+        "Malaysia": "Malaysia",
+        "Thailand": "Thailand"
+      }
+    }
+  }
+}

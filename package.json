@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --filter=!./apps/client-app",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "sst": "sst",
+    "deploy:staging": "cross-env $(cat .env.staging) sst deploy --stage staging",
+    "deploy:production": "sst deploy --stage production",
+    "refresh:staging": "cross-env $(cat .env.staging) sst refresh --stage staging",
+    "refresh:production": "cross-env $(cat .env.production) sst refresh --stage production",
+    "unlock:staging": "cross-env $(cat .env.staging) sst unlock --stage staging",
+    "unlock:production": "cross-env $(cat .env.production) sst unlock --stage production"
+  },
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "schema-utils": "^4.2.0",
+    "tsconfig": "*",
+    "turbo": "^1.12.4"
+  },
+  "name": "ttm",
+  "packageManager": "npm@10.1.0",
+  "workspaces": {
+    "packages": [
+      "apps/web",
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/client-app/**",
+      "**/client-app/**/**"
+    ]
+  }
+}

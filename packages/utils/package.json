@@ -1,0 +1,20 @@
+{
+  "name": "@ttm/utils",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write . --ignore-path ../../.gitignore"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/date-fns": "^2.6.0",
+    "@ttm/prettier-config": "^0.1.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0"
+  },
+  "prettier": "@ttm/prettier-config"
+}
