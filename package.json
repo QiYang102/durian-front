@@ -25,14 +25,8 @@
   },
   "name": "ttm",
   "packageManager": "npm@10.1.0",
-  "workspaces": {
-    "packages": [
-      "apps/web",
-      "packages/*"
-    ],
-    "nohoist": [
-      "**/client-app/**",
-      "**/client-app/**/**"
-    ]
-  }
+  "workspaces": [
+    "apps/web",
+    "packages/*"
+  ]
 }
