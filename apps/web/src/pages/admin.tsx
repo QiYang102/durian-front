@@ -36,7 +36,7 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/components/ui/Sidebar";
+} from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -98,9 +98,7 @@ function AppSidebar() {
     >
       <SidebarHeader className="border-b p-4 gap-3">
         <div className="flex items-center justify-between gap-2">
-          <div
-            className="hidden group-data-[state=expanded]:flex w-auto items-center rounded-md bg-white p-2 cursor-pointer hover:bg-gray-50 transition-colors"
-          >
+          <div className="hidden group-data-[state=expanded]:flex w-auto items-center rounded-md bg-white p-2 cursor-pointer hover:bg-gray-50 transition-colors">
             <img
               className="h-8 object-contain"
               src={DuriNowLogo}
@@ -144,13 +142,8 @@ function AppSidebar() {
             <UserProfilePopover />
           </SidebarMenuItem>
         </SidebarMenu>
-        <div
-          className="hidden group-data-[state=expanded]:block px-3 py-2 text-center"
-        >
-          <Text
-            variant="caption"
-            color="systemBlack"
-          >
+        <div className="hidden group-data-[state=expanded]:block px-3 py-2 text-center">
+          <Text variant="caption" color="systemBlack">
             {`version: ${version}`}
           </Text>
         </div>
@@ -229,7 +222,7 @@ function LayoutComponent() {
   });
 
   useEffect(() => {
-    if (!isLoading && (!user || user.role !== 'admin')) {
+    if (!isLoading && (!user || user.role !== "admin")) {
       navigate({ to: "/durian", replace: true });
     }
   }, [user, isLoading, navigate]);
@@ -247,7 +240,7 @@ function LayoutComponent() {
     );
   }
 
-  if (!user || user.role !== 'admin') {
+  if (!user || user.role !== "admin") {
     return null;
   }
 
