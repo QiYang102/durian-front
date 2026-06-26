@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useDurianProducts } from '@ttm/api';
 import { Card, CardContent, CardFooter } from '@/components/ui/Card';
@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { DurianLayout } from '@/components/durian/DurianLayout';
 import { Leaf } from 'lucide-react';
 import { toast } from 'sonner';
+import { useGlobalLoading } from '@/components/GlobalLoadingContext';
 
 export const Route = createFileRoute('/durian/products')({
   component: DurianProducts,
@@ -15,6 +16,13 @@ function DurianProducts() {
   const { data: products, isLoading } = useDurianProducts();
   const navigate = useNavigate();
   const [animations, setAnimations] = useState<{ id: number; x: number; y: number }[]>([]);
+
+  const { showLoading, hideLoading } = useGlobalLoading();
+  useEffect(() => {
+    if (isLoading) showLoading('Loading...');
+    else hideLoading();
+    return () => hideLoading();
+  }, [isLoading]);
 
   const addToCart = (product: any, e: React.MouseEvent<HTMLButtonElement>) => {
     const existingStr = localStorage.getItem('durian_cart');

@@ -13,6 +13,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { axiosClient } from "@ttm/api/axios";
 import { LeadManagementProvider, SessionProvider } from "@ttm/context";
 import { CustomerManagementProvider } from "@ttm/context/contexts/customerManagement";
+import { GlobalLoadingProvider } from "./components/GlobalLoadingContext";
 
 import { routeTree } from "./routeTree.gen";
 import { queryClient } from "./lib/queryClient";
@@ -77,15 +78,17 @@ if (rootElement) {
   root.render(
     <StrictMode>
       <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider>
-            <LeadManagementProvider>
-              <CustomerManagementProvider>
-                <RouterProvider router={router} />
-              </CustomerManagementProvider>
-            </LeadManagementProvider>
-          </SessionProvider>
-        </QueryClientProvider>
+        <GlobalLoadingProvider>
+          <QueryClientProvider client={queryClient}>
+            <SessionProvider>
+              <LeadManagementProvider>
+                <CustomerManagementProvider>
+                  <RouterProvider router={router} />
+                </CustomerManagementProvider>
+              </LeadManagementProvider>
+            </SessionProvider>
+          </QueryClientProvider>
+        </GlobalLoadingProvider>
       </ErrorBoundary>
     </StrictMode>
   );

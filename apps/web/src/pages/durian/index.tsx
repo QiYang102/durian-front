@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { DurianLayout } from '@/components/durian/DurianLayout';
 import { Star, ChevronLeft, ChevronRight, Image as ImageIcon, Leaf } from 'lucide-react';
 import { toast } from 'sonner';
+import { useGlobalLoading } from '@/components/GlobalLoadingContext';
 
 export const Route = createFileRoute('/durian/')({
   component: DurianHome,
@@ -13,7 +14,14 @@ export const Route = createFileRoute('/durian/')({
 
 function DurianHome() {
   const { data: banners } = useDurianBanners();
-  const { data: products } = useDurianProducts();
+  const { data: products, isLoading } = useDurianProducts();
+
+  const { showLoading, hideLoading } = useGlobalLoading();
+  useEffect(() => {
+    if (isLoading) showLoading('Loading...');
+    else hideLoading();
+    return () => hideLoading();
+  }, [isLoading]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animations, setAnimations] = useState<{ id: number; x: number; y: number }[]>([]);

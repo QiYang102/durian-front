@@ -19,6 +19,8 @@ function DurianProfile() {
 
   const [selectedFiles, setSelectedFiles] = useState<{ [orderId: string]: File }>({});
 
+  const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
+
   useEffect(() => {
     if (user === null) {
       navigate({ to: '/durian/login', replace: true });
@@ -64,9 +66,15 @@ function DurianProfile() {
           <div className="space-y-4">
             {orders.map((order) => (
               <Card key={order.hashid} className="overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-                <CardHeader className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 py-3">
+                <CardHeader 
+                  className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 py-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors"
+                  onClick={() => setExpandedOrder(expandedOrder === order.id ? null : order.id)}
+                >
                   <div className="flex justify-between items-center">
-                    <CardTitle className="text-lg text-slate-900 dark:text-white font-bold">Order #{order.hashid}</CardTitle>
+                    <div className="flex items-center gap-3">
+                      <CardTitle className="text-lg text-slate-900 dark:text-white font-bold">Order #{order.hashid}</CardTitle>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline">(Click to view details)</span>
+                    </div>
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize tracking-wide ${
                       order.status === 'success_paid' 
                         ? 'bg-green-100 text-green-800 dark:bg-green-900/55 dark:text-green-200' 
@@ -101,6 +109,41 @@ function DurianProfile() {
                       <p className="font-extrabold text-lg text-slate-950 dark:text-white">RM {order.total_amount}</p>
                     </div>
                   </div>
+
+                  {expandedOrder === order.id && (
+                    <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-3">Order Details</h4>
+                      <div className="space-y-2 mb-4">
+                        {order.items?.map((item, idx) => (
+                          <div key={idx} className="flex justify-between text-sm text-slate-700 dark:text-slate-300">
+                            <span>{(item.product?.name || item.product_name)} <span className="text-slate-500 text-xs ml-1">x {item.quantity}</span></span>
+                            <span className="font-medium">RM {item.total_price}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="border-t border-slate-100 dark:border-slate-800 pt-3 space-y-1.5 text-sm">
+                        <div className="flex justify-between text-slate-500 dark:text-slate-400">
+                          <span>Subtotal</span>
+                          <span>RM {order.subtotal}</span>
+                        </div>
+                        {parseFloat(order.discount_amount) > 0 && (
+                          <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-medium">
+                            <span>Discount</span>
+                            <span>- RM {order.discount_amount}</span>
+                          </div>
+                        )}
+                        <div className="flex justify-between text-slate-500 dark:text-slate-400">
+                          <span>Shipping Fee</span>
+                          <span>{parseFloat(order.shipping_fee) === 0 ? 'Free' : `RM ${order.shipping_fee}`}</span>
+                        </div>
+                        <div className="flex justify-between font-bold text-slate-900 dark:text-white pt-3 border-t border-slate-100 dark:border-slate-800 mt-2 text-base">
+                          <span>Total</span>
+                          <span>RM {order.total_amount}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {order.status === 'pending' && (
                     <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">

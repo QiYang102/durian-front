@@ -13,8 +13,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Text } from '@/components/ui/Text';
 import { ClassicLayout } from '@/components/ui/ClassicLayout';
+import { useGlobalLoading } from '@/components/GlobalLoadingContext';
 import { toast } from 'sonner';
-import { Edit, Trash2, Plus, X } from 'lucide-react';
+import { Edit, Trash2, Plus, X, Loader2 } from 'lucide-react';
 
 export const Route = createFileRoute('/admin/products')({
   component: AdminProducts,
@@ -28,6 +29,8 @@ function AdminProducts() {
   const updateProduct = useUpdateDurianProduct();
   const deleteProduct = useDeleteDurianProduct();
   const uploadProductImage = useUploadDurianProductImage();
+
+  const { showLoading, hideLoading } = useGlobalLoading();
 
   const [editingProduct, setEditingProduct] = useState<Partial<DurianProduct> | null>(null);
   const [isNew, setIsNew] = useState(false);
@@ -88,6 +91,7 @@ function AdminProducts() {
     };
 
     try {
+      showLoading(isNew ? 'Creating product...' : 'Saving product...');
       let savedProductId: number | null = null;
       if (isNew) {
         const res = await createProduct.mutateAsync(payload);
@@ -101,10 +105,15 @@ function AdminProducts() {
       }
 
       if (imageFile && savedProductId) {
-        await uploadProductImage.mutateAsync({
-          productId: savedProductId,
-          file: imageFile
-        });
+        try {
+          showLoading('Uploading image...');
+          await uploadProductImage.mutateAsync({
+            productId: savedProductId,
+            file: imageFile
+          });
+        } finally {
+          hideLoading();
+        }
       }
 
       toast.success("Product saved successfully!");
@@ -112,16 +121,21 @@ function AdminProducts() {
       setImageFile(null);
     } catch (err: any) {
       toast.error("Failed to save product: " + err.message);
+    } finally {
+      hideLoading();
     }
   };
 
   const handleDelete = async (id: number) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
+      showLoading('Deleting product...');
       await deleteProduct.mutateAsync(id);
       toast.success("Product deleted!");
     } catch (err: any) {
       toast.error("Failed to delete product: " + err.message);
+    } finally {
+      hideLoading();
     }
   };
 
@@ -245,10 +259,14 @@ function AdminProducts() {
             </div>
 
             <div className="flex gap-4 md:col-span-2 mt-4">
-              <Button onClick={handleSave} className="bg-slate-900 text-white hover:bg-yellow-500 hover:text-slate-950 font-bold px-6 shadow-sm">
-                Save
+              <Button onClick={handleSave} disabled={createProduct.isPending || updateProduct.isPending || uploadProductImage.isPending} className="bg-slate-900 text-white hover:bg-yellow-500 hover:text-slate-950 font-bold px-6 shadow-sm">
+                {(createProduct.isPending || updateProduct.isPending || uploadProductImage.isPending) ? (
+                  <><Loader2 className="h-4 w-4 mr-1 animate-spin" />{isNew ? 'Creating...' : 'Saving...'}</>
+                ) : (
+                  <>Save</>
+                )}
               </Button>
-              <Button variant="outline" onClick={() => setEditingProduct(null)} className="border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+              <Button variant="outline" onClick={() => setEditingProduct(null)} disabled={createProduct.isPending || updateProduct.isPending || uploadProductImage.isPending} className="border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300">
                 Cancel
               </Button>
             </div>
@@ -307,8 +325,8 @@ function AdminProducts() {
                         <Button variant="ghost" size="icon" onClick={() => startEdit(p)} className="h-8 w-8 text-slate-500 hover:text-slate-900">
                           <Edit className="w-4 h-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)} className="h-8 w-8 text-red-500 hover:text-red-700">
-                          <Trash2 className="w-4 h-4" />
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)} disabled={deleteProduct.isPending} className="h-8 w-8 text-red-500 hover:text-red-700">
+                          {deleteProduct.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                         </Button>
                       </td>
                     </tr>

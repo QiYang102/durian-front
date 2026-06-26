@@ -41,7 +41,10 @@ export interface DurianOrder {
   create_at: string;
   payment_receipt: string | null;
   items: {
-    product_name: string;
+    product_name?: string;
+    product?: {
+      name: string;
+    };
     quantity: number;
     unit_price: string;
     total_price: string;
@@ -102,8 +105,16 @@ export const useDurianOrders = () => {
   return useQuery({
     queryKey: ['durianOrders'],
     queryFn: async () => {
-      const res = await axiosClient.get('/durian/orders');
-      return res.data.orders as DurianOrder[];
+      const res = await axiosClient.get('/durian/orders?include[]=items.*');
+      const orders = res.data.orders || [];
+      const orderItems = res.data.order_items || [];
+      
+      return orders.map((order: any) => ({
+        ...order,
+        items: (order.items || []).map((itemId: number) => 
+          orderItems.find((i: any) => i.id === itemId)
+        ).filter(Boolean)
+      })) as DurianOrder[];
     },
   });
 };
@@ -130,6 +141,19 @@ export const useUploadDurianReceipt = () => {
       const res = await axiosClient.post(`/durian/orders/${orderId}/upload_receipt`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['durianOrders'] });
+    },
+  });
+};
+
+export const useCancelDurianOrder = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (orderId: number) => {
+      const res = await axiosClient.post(`/durian/orders/${orderId}/cancel`);
       return res.data;
     },
     onSuccess: () => {
@@ -245,7 +269,7 @@ export const useValidatePromoCode = () => {
   return useMutation({
     mutationFn: async (code: string) => {
       const res = await axiosClient.post('/durian/promo-codes/validate', { code });
-      return res.data as PromoCode;
+      return res.data.promo_code as PromoCode;
     },
   });
 };
