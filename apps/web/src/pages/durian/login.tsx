@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate, Link } from '@tanstack/react-router';
+import React from 'react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -6,6 +7,7 @@ import { DurianLayout } from '@/components/durian/DurianLayout';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useSession } from '@ttm/context/contexts/session';
 import { toast } from 'sonner';
+import { useGlobalLoading } from '@/components/GlobalLoadingContext';
 
 export const Route = createFileRoute('/durian/login')({
   component: DurianLogin,
@@ -14,6 +16,7 @@ export const Route = createFileRoute('/durian/login')({
 function DurianLogin() {
   const { signIn } = useSession();
   const navigate = useNavigate();
+  const { showLoading, hideLoading } = useGlobalLoading();
   
   const form = useForm({
     defaultValues: {
@@ -24,10 +27,13 @@ function DurianLogin() {
 
   const handleLogin = async (values: any) => {
     try {
+      showLoading("Signing in...");
       await signIn({ username: values.username, password: values.password });
       navigate({ to: '/durian' });
     } catch (err) {
       toast.error("Login failed. Check your credentials.");
+    } finally {
+      hideLoading();
     }
   };
 

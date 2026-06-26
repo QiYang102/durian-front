@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui/Button';
 import { useSession } from '@ttm/context/contexts/session';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Menu } from 'lucide-react';
 import DuriNowLogo from '@/assets/DurianNow_Logo.png';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 
 export function DurianLayout({ children }: { children: React.ReactNode }) {
   const { user, signOut } = useSession();
@@ -66,8 +67,8 @@ export function DurianLayout({ children }: { children: React.ReactNode }) {
             </nav>
           </div>
           
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold flex items-center gap-2 relative" onClick={() => navigate({ to: '/durian/cart' })}>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button variant="ghost" className="hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold flex items-center gap-2 relative px-2 sm:px-4" onClick={() => navigate({ to: '/durian/cart' })}>
               <div className="relative">
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
@@ -76,10 +77,12 @@ export function DurianLayout({ children }: { children: React.ReactNode }) {
                   </span>
                 )}
               </div>
-              <span className="ml-1">Cart</span>
+              <span className="ml-1 hidden sm:inline">Cart</span>
             </Button>
+            
+            {/* Desktop Auth / User Controls */}
             {user ? (
-              <div className="flex items-center gap-4">
+              <div className="hidden md:flex items-center gap-4">
                 {user.role === 'admin' && (
                   <Link
                     to="/admin"
@@ -94,7 +97,7 @@ export function DurianLayout({ children }: { children: React.ReactNode }) {
                   to="/durian/profile"
                   activeProps={{ className: "text-yellow-600 dark:text-yellow-400 font-bold" }}
                   inactiveProps={{ className: "text-slate-600 dark:text-slate-300" }}
-                  className="hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors font-medium hidden sm:inline"
+                  className="hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors font-medium"
                 >
                   {user.fullname || user.username || user.email}
                 </Link>
@@ -103,10 +106,62 @@ export function DurianLayout({ children }: { children: React.ReactNode }) {
                 </Button>
               </div>
             ) : (
-              <Button className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-50 dark:hover:bg-slate-200 text-white dark:text-slate-900 border-none shadow-sm font-semibold" onClick={() => navigate({ to: '/durian/login' })}>
+              <Button className="hidden md:flex bg-slate-900 hover:bg-slate-800 dark:bg-slate-50 dark:hover:bg-slate-200 text-white dark:text-slate-900 border-none shadow-sm font-semibold" onClick={() => navigate({ to: '/durian/login' })}>
                 Login
               </Button>
             )}
+
+            {/* Mobile Menu */}
+            <div className="flex md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="text-slate-800 dark:text-slate-200 -ml-1">
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] bg-white dark:bg-slate-950 flex flex-col pt-12">
+                  <nav className="flex flex-col gap-6 font-medium text-lg">
+                    <SheetClose asChild>
+                      <Link to="/durian/products" className="hover:text-yellow-600 dark:hover:text-yellow-400">Products</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/durian/about" className="hover:text-yellow-600 dark:hover:text-yellow-400">About Us</Link>
+                    </SheetClose>
+                    
+                    <div className="h-px bg-slate-200 dark:bg-slate-800 my-2" />
+                    
+                    {user ? (
+                      <>
+                        <div className="text-sm text-slate-500 mb-2 truncate px-1">
+                          Hi, {user.fullname || user.username || user.email}
+                        </div>
+                        {user.role === 'admin' && (
+                          <SheetClose asChild>
+                            <Link to="/admin" className="hover:text-yellow-600 dark:hover:text-yellow-400 font-bold text-blue-600 dark:text-blue-400">Admin Panel</Link>
+                          </SheetClose>
+                        )}
+                        <SheetClose asChild>
+                          <Link to="/durian/profile" className="hover:text-yellow-600 dark:hover:text-yellow-400">
+                            Profile / Orders
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Button variant="outline" className="w-full justify-center mt-4 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200" onClick={signOut}>
+                            Sign Out
+                          </Button>
+                        </SheetClose>
+                      </>
+                    ) : (
+                      <SheetClose asChild>
+                        <Button className="w-full bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200 mt-4 py-6" onClick={() => navigate({ to: '/durian/login' })}>
+                          Login
+                        </Button>
+                      </SheetClose>
+                    )}
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>

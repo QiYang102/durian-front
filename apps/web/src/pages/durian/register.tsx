@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate, Link } from '@tanstack/react-router';
+import React from 'react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -7,6 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useSession } from '@ttm/context/contexts/session';
 import { useAuthRegister } from '@ttm/api';
 import { toast } from 'sonner';
+import { useGlobalLoading } from '@/components/GlobalLoadingContext';
 
 export const Route = createFileRoute('/durian/register')({
   component: DurianRegister,
@@ -16,6 +18,7 @@ function DurianRegister() {
   const register = useAuthRegister();
   const { signIn } = useSession();
   const navigate = useNavigate();
+  const { showLoading, hideLoading } = useGlobalLoading();
 
   const form = useForm({
     defaultValues: {
@@ -34,6 +37,7 @@ function DurianRegister() {
     }
 
     try {
+      showLoading("Signing up...");
       await register.mutateAsync({
         username: values.email,
         email: values.email,
@@ -50,6 +54,8 @@ function DurianRegister() {
     } catch (err: any) {
       console.error(err);
       toast.error(err.response?.data?.detail || "Registration failed. Try a different email.");
+    } finally {
+      hideLoading();
     }
   };
 
