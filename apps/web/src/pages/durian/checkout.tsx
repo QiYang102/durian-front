@@ -21,6 +21,7 @@ function DurianCheckout() {
 
   const form = useForm({
     defaultValues: {
+      customerName: '',
       mobile: '',
       address: '',
       collectPlace: '',
@@ -30,8 +31,9 @@ function DurianCheckout() {
   });
 
   useEffect(() => {
-    if (user?.mobile_number) {
-      form.setValue('mobile', user.mobile_number);
+    if (user) {
+      if (user.fullname) form.setValue('customerName', user.fullname);
+      if (user.mobile_number) form.setValue('mobile', user.mobile_number);
     }
   }, [user, form]);
   
@@ -139,6 +141,7 @@ function DurianCheckout() {
       : values.address;
 
     const data: any = {
+      customer_name: values.customerName,
       mobile_number: values.mobile,
       delivery_address: address,
       delivery_date: values.date,
@@ -219,6 +222,12 @@ function DurianCheckout() {
         <h1 className="text-3xl font-extrabold mb-8 text-center text-slate-900 dark:text-white tracking-tight">Checkout</h1>
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+            <Input 
+              id="customerName" 
+              control={form.control} 
+              label="Customer Name" 
+              rules={{ required: "Customer name is required" }} 
+            />
             <Input 
               id="mobile" 
               control={form.control} 

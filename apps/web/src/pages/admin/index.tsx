@@ -9,7 +9,18 @@ import {
   CheckCircle,
   TrendingUp,
   Package,
+  XCircle,
 } from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { useDurianDashboardStats, useDurianAdminOrders } from "@ttm/api/modules/durian";
 import { Loading } from "@/components/ui/Loading";
 
@@ -21,11 +32,25 @@ function Dashboard() {
 
   const statCards = [
     {
-      title: "Total Orders",
-      value: stats?.total_orders ?? 0,
+      title: "Today's Orders",
+      value: stats?.today_orders ?? 0,
       icon: ShoppingCart,
       color: "text-blue-600",
       bg: "bg-blue-50",
+    },
+    {
+      title: "Pending Revenue",
+      value: `RM ${(stats?.pending_revenue ?? 0).toFixed(2)}`,
+      icon: Clock,
+      color: "text-orange-600",
+      bg: "bg-orange-50",
+    },
+    {
+      title: "Delivered Revenue",
+      value: `RM ${(stats?.delivered_revenue ?? 0).toFixed(2)}`,
+      icon: CheckCircle,
+      color: "text-emerald-600",
+      bg: "bg-emerald-50",
     },
     {
       title: "Total Revenue",
@@ -35,30 +60,16 @@ function Dashboard() {
       bg: "bg-green-50",
     },
     {
-      title: "Pending Orders",
-      value: stats?.pending_orders ?? 0,
-      icon: Clock,
-      color: "text-yellow-600",
-      bg: "bg-yellow-50",
-    },
-    {
-      title: "Paid (Awaiting Review)",
-      value: stats?.paid_orders ?? 0,
-      icon: TrendingUp,
-      color: "text-orange-600",
-      bg: "bg-orange-50",
-    },
-    {
-      title: "Delivered",
-      value: stats?.delivered_orders ?? 0,
-      icon: CheckCircle,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
+      title: "Total Orders",
+      value: stats?.total_orders ?? 0,
+      icon: Package,
+      color: "text-slate-600",
+      bg: "bg-slate-50",
     },
     {
       title: "Cancelled",
       value: stats?.cancelled_orders ?? 0,
-      icon: Package,
+      icon: XCircle,
       color: "text-red-600",
       bg: "bg-red-50",
     },
@@ -106,6 +117,35 @@ function Dashboard() {
           </Card>
         ))}
       </div>
+
+      {/* Chart Section */}
+      <Card>
+        <CardContent className="pt-6">
+          <Text variant="h2" className="mb-4">
+            Revenue & Orders (Last 7 Days)
+          </Text>
+          <div className="h-[300px] w-full">
+            {isLoading ? (
+              <Loading showText text="Loading charts..." size="lg" className="items-center justify-center h-full" />
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={stats?.chart_data ? [...stats.chart_data].reverse() : []} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="date" tick={{fontSize: 12}} tickLine={false} axisLine={false} />
+                  <YAxis yAxisId="left" tick={{fontSize: 12}} tickLine={false} axisLine={false} tickFormatter={(v) => `RM${v}`} />
+                  <YAxis yAxisId="right" orientation="right" tick={{fontSize: 12}} tickLine={false} axisLine={false} />
+                  <Tooltip 
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  />
+                  <Legend />
+                  <Line yAxisId="left" type="monotone" dataKey="revenue" name="Revenue (RM)" stroke="#16a34a" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                  <Line yAxisId="right" type="monotone" dataKey="orders" name="Orders" stroke="#ca8a04" strokeWidth={3} dot={{ r: 4 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Recent Orders Table */}
       <Card>

@@ -11,6 +11,7 @@ export interface DurianProduct {
   weight: string;
   is_featured: boolean;
   is_best_seller: boolean;
+  is_available: boolean;
   image: string;
   category: {
     id: number;
@@ -30,6 +31,7 @@ export interface DurianCategory {
 export interface DurianOrder {
   id: number;
   hashid: string;
+  customer_name: string;
   mobile_number: string;
   delivery_date: string;
   delivery_address: string;
@@ -58,6 +60,10 @@ export interface DurianDashboardStats {
   paid_orders: number;
   delivered_orders: number;
   cancelled_orders: number;
+  today_orders: number;
+  delivered_revenue: number;
+  pending_revenue: number;
+  chart_data: { date: string; orders: number; revenue: number }[];
 }
 
 export interface SystemSetting {
@@ -188,6 +194,20 @@ export const useUpdateOrderStatus = () => {
   return useMutation({
     mutationFn: async ({ orderId, status }: { orderId: number; status: string }) => {
       const res = await axiosClient.post(`/durian/orders/${orderId}/update_status`, { status });
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['durianAdminOrders'] });
+      queryClient.invalidateQueries({ queryKey: ['durianDashboardStats'] });
+    },
+  });
+};
+
+export const useUpdateDurianOrder = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ orderId, data }: { orderId: number; data: any }) => {
+      const res = await axiosClient.patch(`/durian/orders/${orderId}`, data);
       return res.data;
     },
     onSuccess: () => {

@@ -45,6 +45,7 @@ function AdminProducts() {
   const [description, setDescription] = useState('');
   const [isFeatured, setIsFeatured] = useState(false);
   const [isBestSeller, setIsBestSeller] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(true);
 
   const startEdit = (product: DurianProduct) => {
     setEditingProduct(product);
@@ -58,6 +59,7 @@ function AdminProducts() {
     setDescription(product.description || '');
     setIsFeatured(product.is_featured);
     setIsBestSeller(product.is_best_seller);
+    setIsAvailable(product.is_available ?? true);
   };
 
   const startCreate = () => {
@@ -72,6 +74,7 @@ function AdminProducts() {
     setDescription('');
     setIsFeatured(false);
     setIsBestSeller(false);
+    setIsAvailable(true);
   };
 
   const handleSave = async () => {
@@ -87,7 +90,8 @@ function AdminProducts() {
       weight,
       description,
       is_featured: isFeatured,
-      is_best_seller: isBestSeller
+      is_best_seller: isBestSeller,
+      is_available: isAvailable
     };
 
     try {
@@ -256,6 +260,17 @@ function AdminProducts() {
                 />
                 <label htmlFor="isBestSeller" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Mark as Best Seller on homepage</label>
               </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="isAvailable"
+                  checked={isAvailable}
+                  onChange={(e) => setIsAvailable(e.target.checked)}
+                  className="h-4 w-4 rounded border-slate-300 text-yellow-500 focus:ring-yellow-500"
+                />
+                <label htmlFor="isAvailable" className="text-sm font-semibold text-slate-700 dark:text-slate-300">Is Available (Uncheck to mark as unavailable)</label>
+              </div>
             </div>
 
             <div className="flex gap-4 md:col-span-2 mt-4">
@@ -290,6 +305,7 @@ function AdminProducts() {
                     <th className="py-4 px-6">Weight</th>
                     <th className="py-4 px-6">Featured</th>
                     <th className="py-4 px-6">Best Seller</th>
+                    <th className="py-4 px-6">Available</th>
                     <th className="py-4 px-6 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -319,6 +335,13 @@ function AdminProducts() {
                           <span className="px-2 py-0.5 bg-orange-100 text-orange-800 dark:bg-orange-950/30 dark:text-orange-400 text-xs font-semibold rounded-full">Best Seller</span>
                         ) : (
                           <span className="text-slate-400 dark:text-slate-500 text-xs">No</span>
+                        )}
+                      </td>
+                      <td className="py-4 px-6">
+                        {p.is_available ? (
+                          <span className="px-2 py-0.5 bg-green-100 text-green-800 dark:bg-green-950/30 dark:text-green-400 text-xs font-semibold rounded-full">Yes</span>
+                        ) : (
+                          <span className="px-2 py-0.5 bg-red-100 text-red-800 dark:bg-red-950/30 dark:text-red-400 text-xs font-semibold rounded-full">No</span>
                         )}
                       </td>
                       <td className="py-4 px-6 text-right space-x-2">

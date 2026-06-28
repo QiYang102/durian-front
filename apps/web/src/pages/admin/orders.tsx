@@ -12,10 +12,12 @@ import {
   Loader2,
   Plus,
   Upload,
+  Edit,
 } from "lucide-react";
 import {
   useDurianAdminOrders,
   useUpdateOrderStatus,
+  useUpdateDurianOrder,
   useCreateDurianOrder,
   useUploadDurianReceipt,
   useDurianProducts,
@@ -33,6 +35,7 @@ import { toast } from "sonner";
 function Orders() {
   const { data: orders, isLoading } = useDurianAdminOrders();
   const updateStatus = useUpdateOrderStatus();
+  const updateOrder = useUpdateDurianOrder();
   const createOrder = useCreateDurianOrder();
   const uploadReceipt = useUploadDurianReceipt();
   const { data: products } = useDurianProducts();
@@ -43,6 +46,44 @@ function Orders() {
   const [viewingReceipt, setViewingReceipt] = useState<string | null>(null);
   const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
   const [filterStatus, setFilterStatus] = useState<string>("all");
+
+  const [editingOrder, setEditingOrder] = useState<DurianOrder | null>(null);
+  const [editForm, setEditForm] = useState({
+    customer_name: "",
+    mobile_number: "",
+    delivery_address: "",
+    delivery_date: "",
+    status: "",
+  });
+
+  const handleEditClick = (order: DurianOrder, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingOrder(order);
+    setEditForm({
+      customer_name: order.customer_name || "",
+      mobile_number: order.mobile_number || "",
+      delivery_address: order.delivery_address || "",
+      delivery_date: order.delivery_date || "",
+      status: order.status || "",
+    });
+  };
+
+  const submitEdit = async () => {
+    if (!editingOrder) return;
+    showLoading("Saving order...");
+    try {
+      await updateOrder.mutateAsync({
+        orderId: editingOrder.id,
+        data: editForm,
+      });
+      toast.success("Order updated successfully");
+      setEditingOrder(null);
+    } catch (err) {
+      toast.error("Failed to update order");
+    } finally {
+      hideLoading();
+    }
+  };
 
   const deliveryDatesSetting = settings?.find((s) => s.key === 'delivery_dates');
   const allowedDates = deliveryDatesSetting?.value
@@ -343,6 +384,9 @@ function Orders() {
                       Order ID
                     </th>
                     <th className="text-left py-3 px-2 font-medium text-muted-foreground">
+                      Customer
+                    </th>
+                    <th className="text-left py-3 px-2 font-medium text-muted-foreground">
                       Phone
                     </th>
                     <th className="text-left py-3 px-2 font-medium text-muted-foreground">
@@ -378,6 +422,7 @@ function Orders() {
                         <td className="py-3 px-2 font-mono text-xs">
                           {order.hashid}
                         </td>
+                        <td className="py-3 px-2">{order.customer_name || '-'}</td>
                         <td className="py-3 px-2">{order.mobile_number}</td>
                         <td className="py-3 px-2 max-w-[200px] truncate" title={order.items?.map(i => `${(i.product?.name || i.product_name)} x ${i.quantity}`).join(', ')}>
                           {order.items?.map(i => `${(i.product?.name || i.product_name)} x ${i.quantity}`).join(', ')}
@@ -413,7 +458,15 @@ function Orders() {
                           )}
                         </td>
                         <td className="py-3 px-2">
-                          <div className="flex gap-1">
+                          <div className="flex gap-1 flex-wrap items-center">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50"
+                              onClick={(e) => handleEditClick(order, e)}
+                            >
+                              <Edit className="h-4 w-4 mr-1" />Edit
+                            </Button>
                             {order.status === "pending" && (
                               <Button
                                 variant="ghost"
@@ -533,7 +586,20 @@ function Orders() {
                         <tr className="bg-slate-50 dark:bg-slate-800/50">
                           <td colSpan={9} className="p-4 border-b border-slate-200 dark:border-slate-700">
                             <div className="flex flex-col gap-2 max-w-2xl mx-auto">
-                              <h4 className="font-semibold mb-2">Order Details</h4>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                  <h4 className="font-semibold text-slate-700 mb-1">Customer Info</h4>
+                                  <p className="text-sm"><span className="text-slate-500">Name:</span> {order.customer_name || 'N/A'}</p>
+                                  <p className="text-sm"><span className="text-slate-500">Phone:</span> {order.mobile_number}</p>
+                                </div>
+                                <div>
+                                  <h4 className="font-semibold text-slate-700 mb-1">Delivery Info</h4>
+                                  <p className="text-sm"><span className="text-slate-500">Date:</span> {order.delivery_date}</p>
+                                  <p className="text-sm"><span className="text-slate-500">Address:</span> {order.delivery_address}</p>
+                                </div>
+                              </div>
+                              
+                              <h4 className="font-semibold mb-2 text-slate-700">Order Items</h4>
                               {order.items?.map((item: any, i: number) => (
                                 <div key={i} className="flex justify-between items-center py-1 border-b border-slate-200 dark:border-slate-700 last:border-0">
                                   <span className="text-sm">{(item.product?.name || item.product_name)} <span className="text-slate-500 ml-1">x {item.quantity}</span></span>
@@ -599,6 +665,97 @@ function Orders() {
               alt="Payment Receipt"
               className="max-w-full rounded-md"
             />
+          </div>
+        </div>
+      )}
+
+      {/* Edit Order Modal */}
+      {editingOrder && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+          onClick={() => setEditingOrder(null)}
+        >
+          <div
+            className="relative w-full max-w-lg bg-white rounded-lg shadow-xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6">
+              <Text variant="h3" className="mb-4">
+                Edit Order {editingOrder.hashid}
+              </Text>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Customer Name
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-3 py-2 border rounded-md"
+                    value={editForm.customer_name}
+                    onChange={(e) => setEditForm({...editForm, customer_name: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Mobile Number
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-3 py-2 border rounded-md"
+                    value={editForm.mobile_number}
+                    onChange={(e) => setEditForm({...editForm, mobile_number: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Delivery Date
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full px-3 py-2 border rounded-md"
+                    value={editForm.delivery_date}
+                    onChange={(e) => setEditForm({...editForm, delivery_date: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Delivery Address
+                  </label>
+                  <textarea
+                    className="w-full px-3 py-2 border rounded-md"
+                    rows={3}
+                    value={editForm.delivery_address}
+                    onChange={(e) => setEditForm({...editForm, delivery_address: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Status
+                  </label>
+                  <select
+                    className="w-full px-3 py-2 border rounded-md"
+                    value={editForm.status}
+                    onChange={(e) => setEditForm({...editForm, status: e.target.value})}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
+                    <option value="success_paid">Success Paid</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div className="flex justify-end gap-3 mt-6">
+                <Button variant="outline" onClick={() => setEditingOrder(null)}>
+                  Cancel
+                </Button>
+                <Button className="bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold" onClick={submitEdit} disabled={updateOrder.isPending}>
+                  {updateOrder.isPending ? "Saving..." : "Save Changes"}
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       )}

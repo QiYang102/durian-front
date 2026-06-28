@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { DurianLayout } from '@/components/durian/DurianLayout';
+import { Trash2 } from 'lucide-react';
 
 export const Route = createFileRoute('/durian/cart')({
   component: DurianCart,
@@ -25,6 +26,21 @@ function DurianCart() {
     setCart([]);
   };
 
+  const updateQuantity = (id: string | number, newQuantity: number) => {
+    let newCart = [...cart];
+    if (newQuantity <= 0) {
+      newCart = newCart.filter(item => item.id !== id);
+    } else {
+      const idx = newCart.findIndex(item => item.id === id);
+      if (idx !== -1) {
+        newCart[idx].quantity = newQuantity;
+      }
+    }
+    localStorage.setItem('durian_cart', JSON.stringify(newCart));
+    window.dispatchEvent(new Event('durian_cart_updated'));
+    setCart(newCart);
+  };
+
   return (
     <DurianLayout>
       <div className="max-w-3xl w-full">
@@ -41,13 +57,23 @@ function DurianCart() {
           <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
             <CardContent className="p-6">
               {cart.map((item: any) => (
-                <div key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 py-4">
-                  <div>
+                <div key={item.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 dark:border-slate-800 py-4 gap-4">
+                  <div className="flex-1">
                     <h3 className="font-bold text-slate-900 dark:text-slate-100">{item.name}</h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">RM {item.price} x {item.quantity}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">RM {item.price} each</p>
                   </div>
-                  <div className="font-extrabold text-slate-900 dark:text-slate-100">
-                    RM {(parseFloat(item.price) * item.quantity).toFixed(2)}
+                  <div className="flex items-center gap-4 self-end sm:self-auto">
+                    <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-800">
+                      <Button variant="ghost" className="h-8 w-8 p-0 rounded-none hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</Button>
+                      <span className="w-8 text-center text-sm font-semibold text-slate-900 dark:text-slate-100">{item.quantity}</span>
+                      <Button variant="ghost" className="h-8 w-8 p-0 rounded-none hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</Button>
+                    </div>
+                    <div className="font-extrabold text-slate-900 dark:text-slate-100 w-24 text-right">
+                      RM {(parseFloat(item.price) * item.quantity).toFixed(2)}
+                    </div>
+                    <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 -mr-2" onClick={() => updateQuantity(item.id, 0)}>
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -57,9 +83,12 @@ function DurianCart() {
                 <span>RM {total.toFixed(2)}</span>
               </div>
 
-              <div className="flex gap-4 mt-4">
+              <div className="flex flex-col sm:flex-row gap-4 mt-6">
                 <Button variant="outline" className="flex-1 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold" onClick={clearCart}>
                   Clear Cart
+                </Button>
+                <Button variant="outline" className="flex-1 border-yellow-500 text-yellow-600 dark:text-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-950/30 font-semibold" onClick={() => navigate({ to: '/durian/products' })}>
+                  Add More Items
                 </Button>
                 <Button className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold shadow-md shadow-yellow-500/10 hover:shadow-yellow-500/20" onClick={() => navigate({ to: '/durian/checkout' })}>
                   Checkout

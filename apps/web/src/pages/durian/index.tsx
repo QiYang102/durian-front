@@ -8,6 +8,10 @@ import { Star, ChevronLeft, ChevronRight, Image as ImageIcon, Leaf } from 'lucid
 import { toast } from 'sonner';
 import { useGlobalLoading } from '@/components/GlobalLoadingContext';
 
+import farm1 from '@/assets/farm1.jpeg';
+import farm2 from '@/assets/farm2.jpeg';
+import farm3 from '@/assets/farm3.jpeg';
+
 export const Route = createFileRoute('/durian/')({
   component: DurianHome,
 });
@@ -37,7 +41,14 @@ function DurianHome() {
   }, [banners]);
 
   const bestSellers = products ? products.filter(p => p.is_best_seller) : [];
-  const displayProducts = bestSellers.length > 0 ? bestSellers : (products ? products.slice(0, 3) : []);
+  let displayProducts = bestSellers.length > 0 ? bestSellers : (products ? products.slice(0, 3) : []);
+  if (displayProducts.length > 0) {
+    displayProducts = [...displayProducts].sort((a: any, b: any) => {
+      if (a.is_available === false && b.is_available !== false) return 1;
+      if (a.is_available !== false && b.is_available === false) return -1;
+      return a.name.localeCompare(b.name);
+    });
+  }
 
   const addToCart = (product: any, e: React.MouseEvent<HTMLButtonElement>) => {
     const existingStr = localStorage.getItem('durian_cart');
@@ -90,7 +101,7 @@ function DurianHome() {
     {
       name: "Aaron Raj",
       rating: 5,
-      comment: "The buy-1-free-1 promo code was a steal. The durian mochi is super soft and rich in flavor.",
+      comment: "The free delivery offer is so good! The durian mochi is super soft and rich in flavor.",
       role: "Verified Purchaser"
     }
   ];
@@ -195,7 +206,7 @@ function DurianHome() {
           {products && displayProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {displayProducts.map((p: any) => (
-                <Card key={p.id} className="overflow-hidden flex flex-col h-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 group hover:shadow-lg transition-all duration-300">
+                <Card key={p.id} className={`overflow-hidden flex flex-col h-full border-slate-200 dark:border-slate-800 group hover:shadow-lg transition-all duration-300 ${p.is_available === false ? 'opacity-60 grayscale bg-slate-50 dark:bg-slate-900/50' : 'bg-white dark:bg-slate-900'}`}>
                   <div className="h-48 bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative">
                     {p.image ? (
                       <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -205,14 +216,16 @@ function DurianHome() {
                     <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-500 text-white shadow-md">Best Seller</span>
                   </div>
                   <CardContent className="p-4 flex-grow">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{p.name}</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{p.weight}</p>
+                    <div className="flex justify-between items-start gap-2">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{p.name}</h3>
+                      <span className="text-slate-500 dark:text-slate-400 text-sm font-medium whitespace-nowrap bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{p.weight}</span>
+                    </div>
                     <p className="text-slate-950 dark:text-white font-extrabold text-xl mt-2">RM {p.price}</p>
                     <p className="text-slate-600 dark:text-slate-400 text-sm mt-2 line-clamp-2">{p.description}</p>
                   </CardContent>
                   <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                    <Button className="w-full bg-slate-900 text-white hover:bg-yellow-500 hover:text-slate-950 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-yellow-500 dark:hover:text-slate-950 font-bold transition-all" onClick={(e) => addToCart(p, e)}>
-                      Add to Cart
+                    <Button disabled={p.is_available === false} className="w-full bg-slate-900 text-white hover:bg-yellow-500 hover:text-slate-950 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-yellow-500 dark:hover:text-slate-950 font-bold transition-all disabled:opacity-50" onClick={(e) => addToCart(p, e)}>
+                      {p.is_available === false ? 'Unavailable' : 'Add to Cart'}
                     </Button>
                   </div>
                 </Card>
@@ -221,6 +234,28 @@ function DurianHome() {
           ) : (
             <div className="text-center p-8 text-slate-400">Loading best seller durians...</div>
           )}
+        </div>
+
+        {/* Image Placeholders Section */}
+        <div className="space-y-6">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Our Farm Gallery</h2>
+            <p className="text-slate-500 dark:text-slate-400 mt-2">A glimpse into our pristine durian orchards</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[farm1, farm2, farm3].map((imgSrc, idx) => (
+              <div
+                key={idx}
+                className="h-64 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group relative border border-slate-200 dark:border-slate-800"
+              >
+                <img
+                  src={imgSrc}
+                  alt={`Durian Farm ${idx + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Customer Feedback Section */}
@@ -245,28 +280,6 @@ function DurianHome() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Image Placeholders Section */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Our Farm Gallery</h2>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">Glimpses from our durian orchards coming soon</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <div
-                key={idx}
-                className="h-48 border border-dashed border-slate-300 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-900/30 flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 space-y-2 hover:bg-slate-100 dark:hover:bg-slate-900/50 transition-colors cursor-help"
-              >
-                <div className="p-3 bg-white dark:bg-slate-900 rounded-full shadow-sm">
-                  <ImageIcon className="w-6 h-6 text-slate-400 dark:text-slate-500" />
-                </div>
-                <span className="text-xs font-semibold uppercase tracking-wider">Photo Placeholder</span>
-                <span className="text-[10px] text-slate-400/80">Available soon</span>
-              </div>
             ))}
           </div>
         </div>

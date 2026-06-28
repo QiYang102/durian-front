@@ -61,8 +61,12 @@ function DurianProducts() {
           <div className="p-10 text-center text-slate-500 dark:text-slate-400">Loading fresh durians...</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {products?.map((p: any) => (
-              <Card key={p.id} className="overflow-hidden flex flex-col h-full bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+            {products ? [...products].sort((a: any, b: any) => {
+              if (a.is_available === false && b.is_available !== false) return 1;
+              if (a.is_available !== false && b.is_available === false) return -1;
+              return a.name.localeCompare(b.name);
+            }).map((p: any) => (
+              <Card key={p.id} className={`overflow-hidden flex flex-col h-full border-slate-200 dark:border-slate-800 ${p.is_available === false ? 'opacity-60 grayscale bg-slate-50 dark:bg-slate-900/50' : 'bg-white dark:bg-slate-900'}`}>
                 <div className="h-48 bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden">
                   {p.image ? (
                     <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
@@ -71,18 +75,20 @@ function DurianProducts() {
                   )}
                 </div>
                 <CardContent className="p-4 flex-grow">
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{p.name}</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{p.weight}</p>
+                  <div className="flex justify-between items-start gap-2">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{p.name}</h3>
+                    <span className="text-slate-500 dark:text-slate-400 text-sm font-medium whitespace-nowrap bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{p.weight}</span>
+                  </div>
                   <p className="text-slate-950 dark:text-white font-extrabold text-xl mt-2">RM {p.price}</p>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-2 line-clamp-2">{p.description}</p>
                 </CardContent>
                 <CardFooter className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 shrink-0">
-                  <Button className="w-full bg-slate-900 text-white hover:bg-yellow-500 hover:text-slate-950 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-yellow-500 dark:hover:text-slate-950 font-bold transition-all" onClick={(e) => addToCart(p, e)}>
-                    Add to Cart
+                  <Button disabled={p.is_available === false} className="w-full bg-slate-900 text-white hover:bg-yellow-500 hover:text-slate-950 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-yellow-500 dark:hover:text-slate-950 font-bold transition-all disabled:opacity-50" onClick={(e) => addToCart(p, e)}>
+                    {p.is_available === false ? 'Unavailable' : 'Add to Cart'}
                   </Button>
                 </CardFooter>
               </Card>
-            ))}
+            )) : null}
           </div>
         )}
       </div>
